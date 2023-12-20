@@ -1,0 +1,39 @@
+#game-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    grid-gap: 10px;
+    justify-content: center;
+    margin: auto;
+}
+
+.game-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    font-size: 24px;
+}
+
+#start-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+}
+
+.game-btn.active {
+    background-color: #4CAF50; /* Grüne Farbe für aktive Knöpfe */
+}
+
+body {
+    background-image: url('background.png'); /* Pfad zum Hintergrundbild */
+    background-size: cover; /* Sorgt dafür, dass das Bild den ganzen Hintergrund bedeckt */
+    background-position: center; /* Zentriert das Bild */
+    background-repeat: no-repeat; /* Verhindert das Wiederholen des Bildes */
+    background-attachment: fixed; /* Das Bild scrollt nicht mit dem Inhalt */
+}
+
+
