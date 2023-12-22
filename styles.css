@@ -36,4 +36,9 @@ body {
     background-attachment: fixed; /* Das Bild scrollt nicht mit dem Inhalt */
 }
 
+#highscore {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
 
