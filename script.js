@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let sequence = [];
     let userSequence = [];
     let inProgress = false;
+    let highscore = 0;
 
     const flashButton = (id) => {
         const button = document.getElementById(`btn-${id}`);
@@ -48,6 +49,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
+    const updateHighscore = () => {
+        if (sequence.length - 1 > highscore) {
+            highscore = sequence.length - 1;
+            document.getElementById("highscore-value").textContent = highscore;
+        }
+    };
+
     buttons.forEach(button => {
         button.addEventListener("click", () => {
             if (!inProgress) {
@@ -64,4 +72,21 @@ document.addEventListener("DOMContentLoaded", () => {
             addToSequence();
         }
     });
+
+    const checkUserSequence = () => {
+        if (userSequence.length === sequence.length) {
+            if (userSequence.every((value, index) => value === sequence[index])) {
+                setTimeout(() => {
+                    userSequence = [];
+                    addToSequence();
+                    updateHighscore(); // Highscore aktualisieren
+                }, 1000);
+            } else {
+                alert("Falsche Sequenz! Spiel beendet.");
+                sequence = [];
+                userSequence = [];
+                inProgress = false;
+            }
+        }
+    };
 });
