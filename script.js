@@ -4,7 +4,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let sequence = [];
     let userSequence = [];
     let inProgress = false;
-    let highscore = 0;
+    let gameStarted = false;
+    let highscore = localStorage.getItem('highscore') || 0;
+    document.getElementById("highscore-value").textContent = highscore;
 
     const flashButton = (id) => {
         const button = document.getElementById(`btn-${id}`);
@@ -27,6 +29,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 600);
     };
 
+const flashAllButtonsRed = () => {
+    buttons.forEach(button => {
+        button.classList.add("wrong");
+    });
+    setTimeout(() => {
+        buttons.forEach(button => {
+            button.classList.remove("wrong");
+        });
+    }, 2000); // Die Dauer sollte der Länge der CSS-Animation entsprechen
+};
+
     const addToSequence = () => {
         const randomNumber = Math.floor(Math.random() * 9) + 1;
         sequence.push(randomNumber);
@@ -39,26 +52,30 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => {
                     userSequence = [];
                     addToSequence();
+                    updateHighscore(); // Highscore aktualisieren und speichern
                 }, 1000);
             } else {
-                alert("Falsche Sequenz! Spiel beendet.");
+                flashAllButtonsRed(); // Alle Knöpfe blinken rot
                 sequence = [];
                 userSequence = [];
                 inProgress = false;
+                gameStarted = false; // Setzen Sie 'gameStarted' zurück, um das Spiel neu zu starten
             }
         }
     };
 
+    // Funktion, um den Highscore zu aktualisieren und in localStorage zu speichern
     const updateHighscore = () => {
         if (sequence.length - 1 > highscore) {
             highscore = sequence.length - 1;
             document.getElementById("highscore-value").textContent = highscore;
+            localStorage.setItem('highscore', highscore);
         }
     };
 
     buttons.forEach(button => {
         button.addEventListener("click", () => {
-            if (!inProgress) {
+            if (!inProgress && gameStarted) {
                 const id = button.id.split("-")[1];
                 userSequence.push(parseInt(id));
                 flashButton(id);
@@ -69,24 +86,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     startButton.addEventListener("click", () => {
         if (!inProgress && sequence.length === 0) {
+            gameStarted = true; // Spiel als gestartet markieren
             addToSequence();
         }
     });
-
-    const checkUserSequence = () => {
-        if (userSequence.length === sequence.length) {
-            if (userSequence.every((value, index) => value === sequence[index])) {
-                setTimeout(() => {
-                    userSequence = [];
-                    addToSequence();
-                    updateHighscore(); // Highscore aktualisieren
-                }, 1000);
-            } else {
-                alert("Falsche Sequenz! Spiel beendet.");
-                sequence = [];
-                userSequence = [];
-                inProgress = false;
-            }
-        }
-    };
 });

@@ -1,6 +1,22 @@
-#game-container {
+body {
+    font-family: 'Arial', sans-serif; /* Moderne Schriftart */
+    background-color: #f4f4f4; /* Leichter Hintergrund */
     text-align: center;
-    margin-top: 50px;
+    margin: 0;
+    padding: 0;
+    background-image: url('background.png'); /* Pfad zum Hintergrundbild */
+    background-size: cover; /* Sorgt dafür, dass das Bild den ganzen Hintergrund bedeckt */
+    background-position: center; /* Zentriert das Bild */
+    background-repeat: no-repeat; /* Verhindert das Wiederholen des Bildes */
+    background-attachment: fixed; /* Das Bild scrollt nicht mit dem Inhalt */
+}
+
+#game-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Leichter Schatten für Tiefe */
 }
 
 #grid {
@@ -9,31 +25,35 @@
     grid-template-rows: repeat(3, 100px);
     grid-gap: 10px;
     justify-content: center;
-    margin: auto;
+    margin-bottom: 20px;
 }
 
 .game-btn {
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
+    background-color: #e7e7e7;
+    border: none;
+    border-radius: 10px; /* Abgerundete Ecken */
     font-size: 24px;
+    transition: background-color 0.3s, transform 0.2s; /* Weiche Übergänge */
+}
+
+.game-btn:hover {
+    background-color: #d4d4d4; /* Hover-Effekt */
+    transform: scale(1.05); /* Leichte Vergrößerung beim Hovern */
 }
 
 #start-btn {
-    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
     padding: 10px 20px;
     font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer; /* Mauszeiger als Hand-Symbol */
+    transition: background-color 0.3s;
 }
 
-.game-btn.active {
-    background-color: #4CAF50; /* Grüne Farbe für aktive Knöpfe */
-}
-
-body {
-    background-image: url('background.png'); /* Pfad zum Hintergrundbild */
-    background-size: cover; /* Sorgt dafür, dass das Bild den ganzen Hintergrund bedeckt */
-    background-position: center; /* Zentriert das Bild */
-    background-repeat: no-repeat; /* Verhindert das Wiederholen des Bildes */
-    background-attachment: fixed; /* Das Bild scrollt nicht mit dem Inhalt */
+#start-btn:hover {
+    background-color: #45a049; /* Dunklerer Grünton beim Hovern */
 }
 
 #highscore {
@@ -41,4 +61,34 @@ body {
     margin-bottom: 15px;
 }
 
+@media (max-width: 600px) {
+    #grid {
+        grid-template-columns: repeat(3, 60px);
+        grid-template-rows: repeat(3, 60px);
+    }
+
+    .game-btn {
+        font-size: 18px;
+    }
+
+    #start-btn {
+        font-size: 18px;
+        padding: 8px 15px;
+    }
+}
+
+.game-btn.active {
+    background-color: #4CAF50; /* Grüne Farbe für aktive Knöpfe */
+    transform: scale(1.1); /* Leicht vergrößern, um Aufmerksamkeit zu erregen */
+    border: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.game-btn.wrong {
+    animation: blinkRed 2s;
+}
+
+@keyframes blinkRed {
+    50% { background-color: red; }
+}
 
